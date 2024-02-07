@@ -1,11 +1,13 @@
 import React, {useState} from "react";
 import appwriteService from '../appwrite/config'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function PostCard({$id, title, featureImage}){
+export default function PostCard({$id, title, featureImage, content, slug}){
     const [image, setImage] = useState(null)
     appwriteService.getFilePreview(featureImage)
     .then(data => setImage(data.href))
+    
+    
     
     
     return (

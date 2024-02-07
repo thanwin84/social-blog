@@ -1,14 +1,19 @@
 import React, {useEffect, useState} from "react";
 import appwriteService from '../appwrite/config'
 import { Container, PostCard } from "../components";
+import {populate} from '../store/postsSlice'
+import {useDispatch} from 'react-redux'
 
 export default function Home(){
     const [posts, setPosts] = useState([])
-    
+    const dispatch = useDispatch()
 
     useEffect(()=>{
         appwriteService.getPosts()
-        .then(posts => setPosts(posts.documents))
+        .then(posts => {
+            setPosts(posts.documents)
+            dispatch(populate(posts.documents))
+        })
         .catch(error => console.log(error))
     }, [])
     

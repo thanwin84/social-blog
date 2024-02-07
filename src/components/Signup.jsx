@@ -10,6 +10,7 @@ export default function Signup(){
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [failed, setFailed] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const {
         register, 
         handleSubmit,
@@ -18,6 +19,7 @@ export default function Signup(){
     
     const create = async(data)=>{
         setFailed(false)
+        setIsSubmitting(true)
         try {
             const user = await authService.createAccount(data)
             if (user){
@@ -30,8 +32,9 @@ export default function Signup(){
             }
         } catch (error) {
            setFailed(true)
+        }finally{
+            setIsSubmitting(false)
         }
-        
     }
     
     return (
@@ -90,7 +93,9 @@ export default function Signup(){
                     
                 </div>
                 <Button type='submit' category="primary" className="w-full">
-                    Create Account
+                    {
+                        isSubmitting ? "Creating acount....": "Create a account"
+                    }
                 </Button>
             </form>
         </div>

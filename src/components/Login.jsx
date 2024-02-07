@@ -9,6 +9,7 @@ import { login as authLogin } from "../store/authSlice";
 export default function Signup(){
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const [failed, setFailed] = useState(false)
     const {
         register, 
@@ -18,6 +19,7 @@ export default function Signup(){
     
     const login = async(data)=>{
         setFailed(false)
+        setIsSubmitting(true)
         try {
             const session = await authService.login(data)
            
@@ -32,8 +34,9 @@ export default function Signup(){
                 }
             }
         } catch (error) {
-            console.log("error......", error)
            setFailed(true)
+        }finally{
+            setIsSubmitting(false)
         }
         
     }
@@ -86,8 +89,14 @@ export default function Signup(){
                     {errors.password && <InputError message={errors.password?.message} />}
                     
                 </div>
-                <Button type='submit' category="primary" className="w-full">
-                    Login
+                <Button type='submit' 
+                    category="primary" 
+                    className= "w-full"
+                    disabled={isSubmitting}
+                >
+                    {
+                        isSubmitting ? "Logging...": "Login"
+                    }
                 </Button>
             </form>
         </div>

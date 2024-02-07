@@ -44,7 +44,7 @@ const router = createBrowserRouter(
         element={<Post/>}
       />
       <Route
-        path="/posts/:slug/edit"
+        path="/posts/edit/:slug"
         element={<EditPost/>}
       />
     </Route>

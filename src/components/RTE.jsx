@@ -3,6 +3,7 @@ import { Controller } from "react-hook-form";
 import { Editor } from '@tinymce/tinymce-react';
 
 export default function RTE({control, name, label, defaultValue=""}){
+    
     return (
         <div className="w-full">
             {label && <label className="inline-block mb-1 pl-1">{label}</label>}
@@ -12,7 +13,7 @@ export default function RTE({control, name, label, defaultValue=""}){
              render={({field: {onChange}})=>(
                 <Editor
                 apiKey='aijqk8lr84wbtu0s27vh1g8jxolnxrsf1k4bh39varur7hz2'
-                initialVavlue={defaultValue}
+                initialValue={defaultValue}
                 init={{
                     plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
                     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',

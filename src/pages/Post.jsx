@@ -6,27 +6,31 @@ import { useSelector } from "react-redux";
 import parse from 'html-react-parser'
 export default function Post(){
 
-    const [post, setPost] = useState(null)
+    
     const [image, setImage] = useState(null)
     const {slug} = useParams()
     const userData = useSelector(state => state.auth.userData)
+    const posts = useSelector(state => state.posts.posts)
+    const post = posts.filter(item => item.$id === slug)[0]
+    const navigate = useNavigate()
     
     const isAuthor = post && userData ? post.userId === userData.$id : false
     
-
+    // pass this data to another route
+    
+    
     useEffect(()=>{
+        console.log('done')
         const fetchData = async()=>{
             try {
-                const userDetails = await appwriteService.getPost(slug)
-                setPost(userDetails)
-                const file = await appwriteService.getFilePreview(userDetails.featureImage)
+                const file = await appwriteService.getFilePreview(post.featureImage)
                 setImage(file.href)
             } catch (error) {
                 
             }
         }
         fetchData()
-    }, [])
+    }, [post.featureImage])
     
    
 
@@ -46,13 +50,12 @@ export default function Post(){
                 {
                     isAuthor && (
                         <div className="flex justify-end">
-                            <Link to={`/posts/${slug}/edit`}>
-                                <Button
+                            <Button
                                     category="success"
+                                    onClick = {()=> navigate(`/posts/edit/${slug}`, {state: post})}
                                 >
                                     update
                                 </Button>
-                            </Link>
                             <Button
                                 category='danger'
                                 className="ml-6"
