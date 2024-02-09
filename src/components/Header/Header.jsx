@@ -39,7 +39,7 @@ export default function Header(){
             <Container>
             <nav className="flex">
                 <div>
-                    <Link to='/'>
+                    <Link to='/' className="text-blue-900 font-bold text-xl">
                         Logo
                     </Link>
                 </div>
@@ -47,12 +47,12 @@ export default function Header(){
                     {
                         navItems.map(item => (
                             item.active ? (
-                                <li key={item.name}>
+                                <li key={item.name} >
                                     <NavLink
                                         to = {item.slug}
                                         className={({isActive, isPending})=> (
-                                            isActive ? "ml-3 text-gray-900    font-medium" : 
-                                            "ml-3 text-gray-600  transition-colors duration-300 ease-in-out hover:text-gray-900 font-medium"
+                                            isActive ? "ml-4 text-blue-500    font-medium border-b-2 border-blue-400" : 
+                                            "ml-4 text-gray-600  transition-colors duration-300 ease-in-out hover:text-gray-900 font-medium"
                                         )}
                                     >
                                         {item.name}

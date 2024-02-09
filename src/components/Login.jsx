@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {Input, Button, InputError} from './index'
+import {Input, Button, InputError, ProgressBar, Container} from './index'
 import { useDispatch } from "react-redux";
 import authService from "../appwrite/auth";
 import {useForm} from 'react-hook-form'
@@ -11,6 +11,7 @@ export default function Signup(){
     const dispatch = useDispatch()
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [failed, setFailed] = useState(false)
+    const [progress, setProgress] = useState(0)
     const {
         register, 
         handleSubmit,
@@ -41,8 +42,23 @@ export default function Signup(){
         
     }
     
+    useEffect(()=>{
+        let interval;
+        if (isSubmitting){
+            interval = setInterval(()=>{
+                setProgress(prev => prev > 100 ? clearInterval(interval): prev + 10)
+            }, 100)
+        }
+        return ()=> clearInterval(interval)
+    }, [isSubmitting])
+
     return (
+        <div className="">
+            <div className="w-4/6 mx-auto max-w-xl">
+            {isSubmitting && <ProgressBar value={progress}/>}
+            </div>
         <div className="p-4 w-4/6 mx-auto shadow-md rounded-md max-w-xl">
+            
             <div className="text-center mb-6">
                 <h2 className=" text-2xl font-bold mb-2">Sign in to your account</h2>
                 <p className=" text-black/60">Don't have any account ?
@@ -99,6 +115,7 @@ export default function Signup(){
                     }
                 </Button>
             </form>
+        </div>
         </div>
     )
 }

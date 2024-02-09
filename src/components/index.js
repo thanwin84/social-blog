@@ -10,8 +10,8 @@ import Login from './Login'
 import PostCard from "./PostCard";
 import RTE from './RTE'
 import PostForm from "./PostForm";
-
-
+import AuthLayout from "./AuthLayout";
+import ProgressBar from "./ProgressBar";
 export {
     Header,
     LogoutButton,
@@ -24,5 +24,7 @@ export {
     InputError,
     PostCard,
     RTE,
-    PostForm
+    PostForm,
+    AuthLayout,
+    ProgressBar
 }

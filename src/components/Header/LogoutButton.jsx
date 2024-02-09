@@ -15,7 +15,7 @@ export default function LogoutButton(){
          className="ml-3 text-gray-600 font-medium"
          onClick={logoutHandler}
         >
-            logout
+            Logout
         </button>
     )
 }

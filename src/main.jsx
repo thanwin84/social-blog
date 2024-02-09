@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom'
 import store from './store/store.js'
 import {Home, Login, Signup, AddPost, AllPost, Post, EditPost} from './pages'
+import {AuthLayout} from './components'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,28 +25,52 @@ const router = createBrowserRouter(
       />
       <Route 
         path='/login'
-        element={<Login/>}
+        element={
+          <AuthLayout>
+            <Login/>
+          </AuthLayout>
+        }
       />
       <Route
         path='/signup'
-        element={<Signup/>}
+        element={
+          <AuthLayout>
+            <Signup/>
+          </AuthLayout>
+        }
       />
       <Route
         path='/add-post'
-        element={<AddPost/>}
+        element={
+          <AuthLayout authentication>
+            <AddPost/>
+          </AuthLayout>
+        }
       />
       <Route
         path='/all-post'
-        element={<AllPost/>}
+        element={
+          <AuthLayout authentication>
+            <AllPost/>
+          </AuthLayout>
+        }
       />
 
       <Route
         path="/posts/:slug"
-        element={<Post/>}
+        element={
+          <AuthLayout authentication>
+            <Post/>
+          </AuthLayout>
+        }
       />
       <Route
         path="/posts/edit/:slug"
-        element={<EditPost/>}
+        element={
+        <AuthLayout authentication>
+          <EditPost/>
+        </AuthLayout>
+        }
       />
     </Route>
   )
