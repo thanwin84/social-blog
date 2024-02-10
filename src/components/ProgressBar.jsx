@@ -11,8 +11,9 @@ export default function ProgressBar({
   useEffect(() => {
     setParcent(Math.min(100, Math.max(0, value)))
   }, [value]);
+ 
   return (
-    <div className={`w-full  rounded-md text-center h-4 ${bgColor} relative ${className}`}>
+    <div className={`w-full  rounded-md text-center  ${bgColor}  ${className}`}>
       {
         showParcentage && (
             <span className="absolute text-sm top-1/2 transform -translate-y-1/2">

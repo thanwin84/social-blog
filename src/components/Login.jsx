@@ -5,13 +5,19 @@ import { useDispatch } from "react-redux";
 import authService from "../appwrite/auth";
 import {useForm} from 'react-hook-form'
 import { login as authLogin } from "../store/authSlice";
+import {useProgressBar} from '../hooks'
 
 export default function Login({className=""}){
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [isSubmitting, setIsSubmitting] = useState(false)
     const [failed, setFailed] = useState(false)
-    const [progress, setProgress] = useState(0)
+    const {
+        isSubmitting,
+        startProgress,
+        finishProgress,
+        progress
+    } = useProgressBar()
+    
     const {
         register, 
         handleSubmit,
@@ -20,7 +26,7 @@ export default function Login({className=""}){
     
     const login = async(data)=>{
         setFailed(false)
-        setIsSubmitting(true)
+        startProgress()
         try {
             const session = await authService.login(data)
            
@@ -37,20 +43,12 @@ export default function Login({className=""}){
         } catch (error) {
            setFailed(true)
         }finally{
-            setIsSubmitting(false)
+            finishProgress()
         }
         
     }
     
-    useEffect(()=>{
-        let interval;
-        if (isSubmitting){
-            interval = setInterval(()=>{
-                setProgress(prev => prev > 100 ? clearInterval(interval): prev + 10)
-            }, 100)
-        }
-        return ()=> clearInterval(interval)
-    }, [isSubmitting])
+    
 
     return (
         <div className="w-full">
@@ -117,7 +115,7 @@ export default function Login({className=""}){
         
         <div className="absolute top-0 w-full">
                 {isSubmitting && <ProgressBar value={progress} showParcentage={false} bgColor="transparent" className="h-1"/>}
-            </div>
         </div>
+    </div>
     )
 }

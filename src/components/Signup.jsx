@@ -1,16 +1,23 @@
 import React, {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {Input, Button, InputError} from './index'
+import {Input, Button, InputError, ProgressBar} from './index'
 import { useDispatch } from "react-redux";
 import authService from "../appwrite/auth";
 import {useForm} from 'react-hook-form'
 import { login } from "../store/authSlice";
+import { useProgressBar } from "../hooks";
+
 
 export default function Signup(){
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [failed, setFailed] = useState(false)
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const {
+        isSubmitting,
+        progress,
+        startProgress,
+        finishProgress
+    } = useProgressBar()
     const {
         register, 
         handleSubmit,
@@ -19,12 +26,12 @@ export default function Signup(){
     
     const create = async(data)=>{
         setFailed(false)
-        setIsSubmitting(true)
+        startProgress()
         try {
             const user = await authService.createAccount(data)
             if (user){
                 const userData = await authService.getCurrentUser()
-                console.log("userdata: ", userData)
+                
                 if (userData){
                     dispatch(login(userData))
                     navigate('/')
@@ -33,12 +40,13 @@ export default function Signup(){
         } catch (error) {
            setFailed(true)
         }finally{
-            setIsSubmitting(false)
+            finishProgress()
         }
     }
     
     return (
-        <div className="p-4 w-4/6 mx-auto shadow-md rounded-md max-w-xl">
+        <div>
+            <div className="p-4 lg:w-4/6 mx-auto shadow-md rounded-md max-w-xl">
             <div className="text-center mb-6">
                 <h2 className=" text-2xl font-bold mb-2">Sign up to create account</h2>
                 <p className=" text-black/60">Already have an account ?
@@ -97,7 +105,11 @@ export default function Signup(){
                         isSubmitting ? "Creating acount....": "Create a account"
                     }
                 </Button>
-            </form>
+            </form>  
+        </div>
+        <div className="absolute top-0 w-full">
+                {isSubmitting && <ProgressBar value={progress} showParcentage={false} bgColor="transparent" className="h-1"/>}
+        </div>
         </div>
     )
 }
