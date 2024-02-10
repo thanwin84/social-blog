@@ -8,15 +8,15 @@ export default function PostCard({$id, title, featureImage, content, slug}){
     .then(data => setImage(data.href))
     
     
-    
+    const _title = title.charAt(0).toUpperCase() + title.slice(1)
     
     return (
         <div className="p-4 rounded w-full shadow-md">
             <Link to={`/posts/${$id}`}>
-                <div>
-                    <img className="w-full rounded-md" src={image} alt="" />
+                <div className="h-40 overflow-hidden rounded-md">
+                    <img className="w-full rounded-md object-cover" src={image} alt="" />
                 </div>
-                <h4 className="text-xl ml-2 font-medium mt-2">{title}</h4>
+                <h4 className="text ml-2 font-medium mt-2">{_title}</h4>
             </Link>
         </div>
     )

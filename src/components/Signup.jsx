@@ -55,7 +55,7 @@ export default function Signup(){
             <form onSubmit={handleSubmit(create)} className="space-y-5">
                 <div>
                     <Input
-                        label="Full Name:"
+                        label="Full Name"
                         placeholder="Full Name"
                         {...register("name", {required: "This field is required"})}
                     />
@@ -63,7 +63,7 @@ export default function Signup(){
                 </div>
                 <div>
                     <Input
-                        label="Email:"
+                        label="Email"
                         type="email"
                         placeholder="Enter your email"
                         {...register("email", {
@@ -79,7 +79,7 @@ export default function Signup(){
                 </div>
                 <div>
                     <Input
-                        label="Password:"
+                        label="Password"
                         type="password"
                         placeholder="Enter your password"
                         {...register("password", {

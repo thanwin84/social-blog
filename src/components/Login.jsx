@@ -6,7 +6,7 @@ import authService from "../appwrite/auth";
 import {useForm} from 'react-hook-form'
 import { login as authLogin } from "../store/authSlice";
 
-export default function Signup(){
+export default function Login({className=""}){
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -53,14 +53,12 @@ export default function Signup(){
     }, [isSubmitting])
 
     return (
-        <div className="">
-            <div className="w-4/6 mx-auto max-w-xl">
-            {isSubmitting && <ProgressBar value={progress}/>}
-            </div>
-        <div className="p-4 w-4/6 mx-auto shadow-md rounded-md max-w-xl">
+        <div className="w-full">
+            
+        <div className={`p-4  mx-auto shadow-lg rounded-md ${className}`}>
             
             <div className="text-center mb-6">
-                <h2 className=" text-2xl font-bold mb-2">Sign in to your account</h2>
+                <h2 className=" text-2xl font-bold mb-2 text-gray-700">Sign in to your account</h2>
                 <p className=" text-black/60">Don't have any account ?
                     <Link
                     to="/signup"
@@ -75,7 +73,7 @@ export default function Signup(){
             <form onSubmit={handleSubmit(login)} className="space-y-5">
                 <div>
                     <Input
-                        label="Email:"
+                        label="Email"
                         type="email"
                         placeholder="Enter your email"
                         {...register("email", {
@@ -92,7 +90,7 @@ export default function Signup(){
 
                 <div>
                     <Input
-                        label="Password:"
+                        label="Password"
                         type="password"
                         placeholder="Enter your password"
                         {...register("password", {
@@ -116,6 +114,10 @@ export default function Signup(){
                 </Button>
             </form>
         </div>
+        
+        <div className="absolute top-0 w-full">
+                {isSubmitting && <ProgressBar value={progress} showParcentage={false} bgColor="transparent" className="h-1"/>}
+            </div>
         </div>
     )
 }
