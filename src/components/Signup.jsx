@@ -52,7 +52,7 @@ export default function Signup(){
                 <p className=" text-black/60">Already have an account ?
                     <Link
                     to="/login"
-                    className="text-black/80 hover:underline hover:text-blue-500"
+                    className="text-black/80 font-normal hover:underline hover:text-blue-500"
                     >
                         Sing In
                     </Link>

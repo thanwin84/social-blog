@@ -1,5 +1,10 @@
 NOTE:
-3. Error handling
-5. how to maintain state even after refreshing the browser
-7. add pagination
-8. fix the postcard size
+
+1. Error handling
+2. add pagination - then try to make custom hook
+3. learn how to handle api
+4. learn redux
+5. we have update the state when we add post - fix it
+
+
+

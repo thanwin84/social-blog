@@ -29,13 +29,16 @@ export default function Home(){
             </Container>
         )
     }
+    // console.log(posts)
     return (
-        <div className="w-full grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2 mt-4">
+        <div className="w-full ">
+           <Container>
             {posts.map(post=>(
-                <div key={post.$id} className="transition-transform duration-300 ease-in-out transform hover:scale-105">
-                    <PostCard {...post}/>
-                </div>
-            ))}
+                    <div key={post.$id} className="">
+                        <PostCard {...post}/>
+                    </div>
+                ))}
+           </Container>
         </div>
     )
 }

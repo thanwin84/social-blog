@@ -12,6 +12,7 @@ import RTE from './RTE'
 import PostForm from "./PostForm";
 import AuthLayout from "./AuthLayout";
 import ProgressBar from "./ProgressBar";
+import Alert from "./Alert";
 export {
     Header,
     LogoutButton,
@@ -26,5 +27,6 @@ export {
     RTE,
     PostForm,
     AuthLayout,
-    ProgressBar
+    ProgressBar,
+    Alert
 }

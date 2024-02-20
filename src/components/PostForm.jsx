@@ -1,10 +1,18 @@
 import React, {useCallback, useEffect, useState} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import {Button, Input, Select, RTE, InputError} from './index'
+import {
+    Button, 
+    Input, 
+    Select, 
+    RTE, 
+    InputError,
+    Alert
+} from './index'
 import {set, useForm} from 'react-hook-form'
 import appwriteService from '../appwrite/config'
 import { useSelector, useDispatch } from "react-redux";
 import { updatePost } from "../store/postsSlice";
+import { useOnlineStatus } from "../hooks";
 
 export default function PostForm(){
     const navigate = useNavigate()
@@ -14,6 +22,9 @@ export default function PostForm(){
     const [isSubmitting, setSubmitting] = useState(false)
     const post = location.state || ""
     const [image, setImage] = useState(null)
+    const isOnline = useOnlineStatus()
+    const [showOnline, setShowOnline] = useState(true)
+    const [showOffline, setShowOfline] = useState(true)
     const {
         handleSubmit, 
         register, 
@@ -95,10 +106,31 @@ export default function PostForm(){
         return ()=> subscription.unsubscribe()
     }, [watch, setValue, slugTransformation])
     
-    
+    useEffect(()=>{
+        const timeout = setTimeout(()=>{
+            setShowOnline(false)
+        }, 1000)
+        return ()=>{
+            clearTimeout(timeout)
+        }
+    }, [showOnline])
 
+    useEffect(()=>{
+        if (!isOnline){
+            setShowOfline(true)
+            const timeout = setTimeout(()=>{
+                setShowOfline(false)
+            }, 1000)
+            return ()=>{
+                clearTimeout(timeout)
+            }
+        } else{
+            setShowOfline(false)
+        }
+    }, [isOnline])
+     console.log(showOffline)
     return (
-        <form onSubmit={handleSubmit(submit)}>
+        <form onSubmit={handleSubmit(submit)} className="h-screen">
             <div className="flex w-full p-2">
                 {/* left side */}
                 <div className="w-4/6">
@@ -145,10 +177,17 @@ export default function PostForm(){
                      {...register('select', {required: true})}
                     />
 
-                    TODO: it should show submitting
-                    <Button type="submit" className="ml-2">
+                    
+                    <Button type="submit" className="ml-2" >
                         {post ? "Update": "Submit"}
                     </Button>
+                    
+                   {
+                    showOnline && <Alert  message="your connection is restored"/>
+                   }
+                   {
+                    showOffline && <Alert message="your connection is lost" type='danger'/>
+                   }
                 </div>
             </div>
             

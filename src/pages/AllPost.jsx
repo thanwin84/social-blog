@@ -16,7 +16,7 @@ export default function AllPost(){
     },[])
     
     return (
-        <div className="w-full grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2 ">
+        <div className="w-full flex">
             {posts.map(post=>(
                 <div key={post.$id}>
                 <PostCard {...post}/>

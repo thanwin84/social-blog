@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {Input, Button, InputError, ProgressBar, Container} from './index'
+import {Input, Button, InputError, ProgressBar} from './index'
 import { useDispatch } from "react-redux";
 import authService from "../appwrite/auth";
 import {useForm} from 'react-hook-form'
