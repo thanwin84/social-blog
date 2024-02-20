@@ -24,7 +24,7 @@ export default function PostForm(){
     const [image, setImage] = useState(null)
     const isOnline = useOnlineStatus()
     const [showOnline, setShowOnline] = useState(true)
-    const [showOffline, setShowOfline] = useState(true)
+    const [showOffline, setShowOfline] = useState(false)
     const {
         handleSubmit, 
         register, 
@@ -118,17 +118,12 @@ export default function PostForm(){
     useEffect(()=>{
         if (!isOnline){
             setShowOfline(true)
-            const timeout = setTimeout(()=>{
-                setShowOfline(false)
-            }, 1000)
-            return ()=>{
-                clearTimeout(timeout)
-            }
+            
         } else{
             setShowOfline(false)
         }
     }, [isOnline])
-     console.log(showOffline)
+    
     return (
         <form onSubmit={handleSubmit(submit)} className="h-screen">
             <div className="flex w-full p-2">

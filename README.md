@@ -5,6 +5,6 @@ NOTE:
 3. learn how to handle api
 4. learn redux
 5. we have update the state when we add post - fix it
-
+6. fix showOline 
 
 
