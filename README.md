@@ -1,4 +1,4 @@
-NOTE:
+Todo:
 
 1. Error handling
 2. add pagination - then try to make custom hook
